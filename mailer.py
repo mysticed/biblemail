@@ -47,8 +47,8 @@ message['To'] = toaddrs
 htmlPart = MIMEText(bible.getGospelReading(datetime.date.today()), 'html')
 message.attach(htmlPart)
 
-username = 'mysticed@gmail.com'
-password = 'fvrxuvmowufixaci'
+username = 'xxx'
+password = 'xxx'
 
 server = smtplib.SMTP('smtp.gmail.com:587')
 server.ehlo()
