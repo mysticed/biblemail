@@ -123,15 +123,15 @@ class BibleSession:
         #page = urllib.urlopen(url)
         #tree = ET.fromstring(page.read())      
         #return self.getPassage(tree.find('info').find('gospel').text)
-        date0 = datetime.date(2014, 10, 5)
+        date0 = datetime.date(2014, 10, 23)
         delta = readingDate - date0
         return self.getPassage(self.readings[delta.days])
    
 bible = BibleSession('IP')
     
-fromaddr = 'mysticed@gmail.com'
+fromaddr = 'westwoodbiblemailer@gmail.com'
 toaddrs  = 'mysticed@gmail.com'
-subject = 'Subject'
+subject = 'Bible Reading ' + datetime.date.today().isoformat()
 
 message = MIMEMultipart('alternative')
 message['Subject'] = subject
@@ -141,13 +141,13 @@ message['To'] = toaddrs
 htmlPart = MIMEText(bible.getGospelReading(datetime.date.today()), 'html')
 message.attach(htmlPart)
 
-username = 'xxx'
-password = 'xxx'
+username = sys.argv[0]
+password = sys.argv[1]
 
-server = smtplib.SMTP('smtp.gmail.com:587')
-server.ehlo()
-server.starttls()
+server = smtplib.SMTP('smtp.gmail.com', 465)
+#server.ehlo()
+#server.starttls()
 server.login(username,password)
-server.sendmail(fromaddr, toaddrs, message.as_string())
+server.sendmail(fromaddr, [toaddrs, fromaddr], message.as_string())
 server.close()
 
