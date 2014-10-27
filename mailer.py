@@ -129,8 +129,8 @@ class BibleSession:
    
 bible = BibleSession('IP')
     
-fromaddr = 'ed@robinsonmail.me.uk'
-toaddrs  = 'mysticed@gmail.com'
+fromaddr = argv[1]
+toaddrs  = argv[2]
 subject = 'Bible Reading ' + datetime.date.today().isoformat()
 
 message = MIMEMultipart('alternative')
