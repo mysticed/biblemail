@@ -129,8 +129,8 @@ class BibleSession:
    
 bible = BibleSession('IP')
     
-fromaddr = sys.argv[1]
-toaddrs  = sys.argv[2]
+fromaddr = sys.argv[3]
+toaddrs  = sys.argv[4]
 subject = 'Bible Reading ' + datetime.date.today().isoformat()
 
 message = MIMEMultipart('alternative')
@@ -141,13 +141,12 @@ message['To'] = toaddrs
 htmlPart = MIMEText(bible.getGospelReading(datetime.date.today()), 'html')
 message.attach(htmlPart)
 
-username = os.environ.get('POSTMARK_API_KEY')
-password = os.environ.get('POSTMARK_API_KEY')
+username = sys.argv[1]
+password = sys.argv[2]
 
-server = smtplib.SMTP('smtp.postmarkapp.com', 587)
+server = smtplib.SMTP('smtp.gmail.com', 587)
 server.ehlo()
 server.starttls()
 server.login(username,password)
 server.sendmail(fromaddr, [toaddrs, fromaddr], message.as_string())
 server.close()
-
