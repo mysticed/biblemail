@@ -129,7 +129,7 @@ class BibleSession:
    
 bible = BibleSession('IP')
     
-fromaddr = 'westwoodbiblemailer@gmail.com'
+fromaddr = 'ed@robinsonmail.me.uk'
 toaddrs  = 'mysticed@gmail.com'
 subject = 'Bible Reading ' + datetime.date.today().isoformat()
 
