@@ -123,7 +123,7 @@ class BibleSession:
         #page = urllib.urlopen(url)
         #tree = ET.fromstring(page.read())      
         #return self.getPassage(tree.find('info').find('gospel').text)
-        date0 = datetime.date(2014, 10, 23)
+        date0 = datetime.date(2014, 10, 28)
         delta = readingDate - date0
         return self.getPassage(self.readings[delta.days])
    
