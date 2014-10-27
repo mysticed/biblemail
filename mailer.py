@@ -129,8 +129,8 @@ class BibleSession:
    
 bible = BibleSession('IP')
     
-fromaddr = argv[1]
-toaddrs  = argv[2]
+fromaddr = sys.argv[1]
+toaddrs  = sys.argv[2]
 subject = 'Bible Reading ' + datetime.date.today().isoformat()
 
 message = MIMEMultipart('alternative')
