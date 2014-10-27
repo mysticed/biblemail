@@ -6,6 +6,7 @@ import xml.etree.ElementTree as ET
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from postmark import PMMail
 
 class BibleSession:
     def __init__(self, key):
@@ -133,21 +134,12 @@ fromaddr = 'westwoodbiblemailer@gmail.com'
 toaddrs  = 'mysticed@gmail.com'
 subject = 'Bible Reading ' + datetime.date.today().isoformat()
 
-message = MIMEMultipart('alternative')
-message['Subject'] = subject
-message['From'] = fromaddr
-message['To'] = toaddrs
+message = PMMail(api_key = os.environ.get('POSTMARK_API_KEY'),
+                 subject = 'Bible Reading ' + datetime.date.today().isoformat(),
+                 sender = 'westwoodbiblemailer@gmail.com',
+                 to = 'mysticed@gmail.com',
+                 h_body = bible.getGospelReading(datetime.date.today(),
+                 tag = "hello")
 
-htmlPart = MIMEText(bible.getGospelReading(datetime.date.today()), 'html')
-message.attach(htmlPart)
-
-username = sys.argv[0]
-password = sys.argv[1]
-
-server = smtplib.SMTP('smtp.gmail.com', 465)
-#server.ehlo()
-#server.starttls()
-server.login(username,password)
-server.sendmail(fromaddr, [toaddrs, fromaddr], message.as_string())
-server.close()
+message.send()
 
